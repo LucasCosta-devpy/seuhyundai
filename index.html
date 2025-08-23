@@ -124,6 +124,8 @@
         transition: transform .08s ease, background .2s ease;
       }
       .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+      @keyframes pulseCta { 0% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } 50% { transform: translateY(-1px) scale(1.03); box-shadow: 0 16px 36px rgba(250, 204, 21, 0.5); } 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } }
+      .btn.attention { animation: pulseCta 1.8s ease-in-out infinite; }
 
       /* Sections */
       section { padding: 36px 0; }
@@ -170,6 +172,13 @@
       .pix-icon { display: inline-flex; width: 18px; height: 18px; vertical-align: -3px; margin: 0 4px; }
       .pix-icon svg { width: 100%; height: 100%; }
       .trust-img { height: 44px; width: auto; display: block; }
+      /* Promo badges and animations */
+      .limited-badge { display:inline-block; margin: 6px 0 4px; color:#111; background: linear-gradient(90deg, #facc15, #f59e0b); padding: 4px 10px; border-radius: 999px; font-weight: 800; box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); }
+      @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+      .blink { animation: blink 1s ease-in-out infinite; }
+      @keyframes blinkBg { 0%, 100% { background: rgba(250, 204, 21, 0.25); box-shadow: 0 0 0 rgba(250, 204, 21, 0.0); } 50% { background: rgba(250, 204, 21, 0.6); box-shadow: 0 0 16px rgba(250, 204, 21, 0.35); } }
+      .promo-highlight { padding: 8px 10px; border-radius: 8px; }
+      .blink-bg { animation: blinkBg 1.2s ease-in-out infinite; }
     </style>
   </head>
   <body>
@@ -178,15 +187,15 @@
         <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
         <span>Ação entre amigos</span>
       </div>
-      <a id="cta-top" class="btn" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">🔑 Participar agora</a>
+      <a id="cta-top" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">Contribuição única R$ 15,00</a>
     </div>
 
     <header class="hero">
       <div class="hero-inner container">
         <div class="eyebrow">🚀 Ação especial entre amigos</div>
-        <h1 class="title">Seu futuro Hyundai Creta pode ser seu</h1>
-        <p class="subtitle">Com uma contribuição única, você participa desta campanha e tem a chance de receber um grande prêmio.</p>
-        <a id="cta-hero" class="btn" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">🔑 Participar agora</a>
+        <h1 class="title">Entre nessa Ação Entre Amigos e garanta sua chance de levar um carro incrível!</h1>
+        <p class="subtitle">Adquira sua cota e acelere rumo à sorte! 🚗✨</p>
+        <a id="cta-hero" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">Contribuição única R$ 15,00</a>
       </div>
     </header>
 
@@ -199,6 +208,15 @@
             <button class="arrow" id="next" aria-label="Próxima imagem">›</button>
           </div>
           <div class="dots" id="dots"></div>
+        </div>
+      </section>
+      <section class="card" aria-label="Vídeo explicativo">
+        <h2>🎥 Entenda a ação</h2>
+        <div style="border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; background: #0c1016;">
+          <video controls preload="metadata" playsinline style="width:100%; max-width:680px; height:auto; max-height:78vh; display:block; margin:0 auto; object-fit:contain;" poster="carro.png">
+            <source src="dona.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeo HTML5.
+          </video>
         </div>
       </section>
       <section id="premio" class="grid two">
@@ -215,6 +233,11 @@
             <li><strong>Contribuição unitária:</strong> R$ 15,00 por participação</li>
           </ul>
           <div class="muted" style="margin-top:8px">🏷️ Promoções </div>
+          <div class="limited-badge">⚡ Promoção relâmpago até 6 de setembro</div>
+          <ul>
+            <li class="promo-highlight blink-bg">12 bilhetes (participações) de <s>R$ 180,00</s> por <strong>R$ 49,90</strong> — quantidade limitada — adquira seu bilhete para participar</li>
+          </ul>
+          <div class="muted" style="margin-top:8px">Promoção fixa</div>
           <ul>
             <li>3 participações por <strong>R$ 12,00</strong> cada</li>
             <li>5 participações por <strong>R$ 11,50</strong> cada</li>
