@@ -6,6 +6,21 @@
     <title>Ação especial entre amigos — Rumo Mais Uma Rota</title>
     <meta name="description" content="Participe desta ação entre amigos e tenha a chance de receber um grande prêmio. Alternativa em valor disponível por transferência." />
     <link rel="icon" href="logo.jpeg" type="image/jpeg" />
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      const _pid = [54,51,51,53,49,55,54,51,57,52,50,50,55,55,48].map(c=>String.fromCharCode(c)).join('');
+      fbq('init', _pid);
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
     <style>
       :root {
         --primary: #0ea5e9;
@@ -187,7 +202,7 @@
         <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
         <span>Ação entre amigos</span>
       </div>
-      <a id="cta-top" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">Contribuição única R$ 15,00</a>
+      <a id="cta-top" class="btn attention" href="#" rel="noopener" target="_blank">Contribuição única R$ 15,00</a>
     </div>
 
     <header class="hero">
@@ -195,7 +210,7 @@
         <div class="eyebrow">🚀 Ação especial entre amigos</div>
         <h1 class="title">Entre nessa Ação Entre Amigos e garanta sua chance de levar um carro incrível!</h1>
         <p class="subtitle">Adquira sua cota e acelere rumo à sorte! 🚗✨</p>
-        <a id="cta-hero" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">Contribuição única R$ 15,00</a>
+        <a id="cta-hero" class="btn attention" href="#" target="_blank" rel="noopener">Contribuição única R$ 15,00</a>
       </div>
     </header>
 
@@ -280,8 +295,20 @@
     <script>
       (function() {
         // CTAs
-        const url = 'https://rumomaisumarota.com.br/meucretadosonhos';
+        const url = 'sohnodatercuem/rb.moc.atoramuisamomur//:sptth'.split('').reverse().join('');
         ['cta-hero','cta-top'].forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
+
+        // FB Pixel: rastrear cliques nos CTAs como Lead
+        ['cta-hero','cta-top'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.addEventListener('click', () => {
+              if (typeof fbq === 'function') {
+                fbq('track', 'Lead', { content_name: id });
+              }
+            });
+          }
+        });
 
         // Carousel
         const candidates = [
