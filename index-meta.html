@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campanha entre amigos — Saiba mais</title>
+    <meta name="description" content="Campanha entre amigos. Saiba mais, fale conosco e receba novidades." />
+    <link rel="icon" href="logo.jpeg" type="image/jpeg" />
+    <style>
+      :root { --bg:#0f1115; --surface:#171a21; --text:#e9eef6; --muted:#9aa4b2; --gold:#facc15; --gold-700:#f59e0b; --radius:12px; --maxw:980px; }
+      *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
+      .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+      .card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:22px}
+      h1{margin:8px 0 10px;font-size:clamp(26px,4vw,40px);text-shadow:0 2px 8px rgba(0,0,0,.8)}
+      p{color:var(--muted)}
+      .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:10px;background:linear-gradient(90deg,var(--gold),var(--gold-700));color:#111;font-weight:800;text-decoration:none}
+      .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+      .top img{width:28px;height:28px;border-radius:6px}
+      .lead{margin-top:12px}
+      .card.light{border-top:2px solid var(--gold)}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top">
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="logo.jpeg" alt="Marca"/>
+          <span style="background:linear-gradient(90deg,#22c55e,#06b6d4);color:#111;padding:4px 10px;border-radius:999px;font-weight:800">Ação entre amigos</span>
+        </div>
+        <a class="btn" href="https://wa.me/" target="_blank" rel="noopener">Quero saber mais</a>
+      </div>
+
+      <main style="margin-top:20px" class="card">
+        <h1>Uma oportunidade exclusiva entre amigos</h1>
+        <p class="lead">Deixe seu contato e receba todas as informações diretamente no seu WhatsApp. Temos condições especiais por tempo limitado.</p>
+        <a class="btn" href="https://wa.me/" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </main>
+
+      <footer style="margin-top:20px" class="card light">
+        <small class="muted">Conteúdo informativo. Termos e condições aplicáveis serão informados após o contato.</small>
+      </footer>
+    </div>
+  </body>
+  </html>
+
+

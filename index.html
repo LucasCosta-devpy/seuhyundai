@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ação especial entre amigos — Rumo Mais Uma Rota</title>
+    <meta name="description" content="Participe desta ação entre amigos e tenha a chance de receber um grande prêmio. Alternativa em valor disponível por transferência." />
+    <link rel="icon" href="logo.jpeg" type="image/jpeg" />
+    <style>
+      :root {
+        --primary: #0ea5e9;
+        --primary-700: #0284c7;
+        --grad-start: #22c55e;
+        --grad-end: #06b6d4;
+        --bg: #0f1115;
+        --surface: #171a21;
+        --muted: #9aa4b2;
+        --text: #e9eef6;
+        --success: #16a34a;
+        --accent: #f59e0b;
+        --radius: 12px;
+        --maxw: 1080px;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.5;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .container {
+        width: 100%;
+        max-width: var(--maxw);
+        padding: 24px;
+        margin: 0 auto;
+      }
+
+      /* Top bar */
+      .topbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: rgba(0,0,0,0.4);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand img { width: 28px; height: 28px; border-radius: 6px; }
+      .brand span { font-size: 13px; font-weight: 800; color: #111; background: linear-gradient(90deg, var(--grad-start), var(--grad-end)); padding: 4px 10px; border-radius: 999px; box-shadow: 0 6px 16px rgba(6,182,212,0.25); }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        min-height: 10vh;
+        display: grid;
+        place-items: center;
+        background: #0b0e13;
+        overflow: clip;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(15,17,21,0.6)), url('carro.png');
+        background-size: cover;
+        background-position: center 60%;
+        filter: saturate(0.9);
+        z-index: 0;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 96px 24px 56px;
+      }
+      .eyebrow {
+        display: inline-block;
+        color: #111;
+        background: linear-gradient(90deg, var(--grad-start), var(--grad-end));
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 800;
+        letter-spacing: .3px;
+        box-shadow: 0 8px 24px rgba(34,197,94,0.25);
+      }
+      .title {
+        margin: 10px 0 12px;
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 800;
+        letter-spacing: .3px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      }
+      .subtitle { color: #c7e5ff; font-size: clamp(15px, 2.2vw, 18px); max-width: 760px; margin: 0 auto 26px; }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: linear-gradient(90deg, #facc15, #f59e0b);
+        color: #111;
+        padding: 14px 22px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.08);
+        font-weight: 700;
+        box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35);
+        transition: transform .08s ease, background .2s ease;
+      }
+      .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+      /* Sections */
+      section { padding: 36px 0; }
+      .card {
+        background: var(--surface);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: var(--radius);
+        padding: 22px;
+      }
+      h2 { margin: 0 0 14px; font-size: 22px; }
+      ul { margin: 12px 0 0; padding-left: 18px; }
+      li { margin: 8px 0; color: var(--text); }
+      .muted { color: var(--muted); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 880px) {
+        .grid.two { grid-template-columns: 1.2fr .8fr; }
+        .grid.three { grid-template-columns: 1fr 1fr 1fr; }
+      }
+
+      /* Carousel */
+      .carousel { position: relative; overflow: hidden; border-radius: var(--radius); }
+      .carousel .viewport { position: relative; width: 100%; background: #0c1016; }
+      .carousel .track { display: flex; align-items: center; transition: transform .5s ease; }
+      .carousel .slide { min-width: 100%; display: flex; align-items: center; justify-content: center; background: #0c1016; padding: 8px; }
+      .carousel img { max-width: 100%; height: auto; max-height: 75vh; object-fit: contain; }
+      .carousel .nav { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; pointer-events: none; }
+      .carousel button.arrow { pointer-events: all; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.45); color: #fff; cursor: pointer; font-size: 18px; font-weight: 800; }
+      .carousel .dots { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center; }
+      .carousel .dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,0.35); }
+      .carousel .dot.active { background: #fff; }
+
+      
+
+      .promo-card strong { color: #facc15; }
+
+      footer { padding: 30px 24px 60px; color: var(--muted); font-size: 13px; }
+      .footer-card { background:#12161d; border-top: 2px solid #facc15; }
+      .center { text-align: center; }
+      .pix-icon { display: inline-flex; width: 18px; height: 18px; vertical-align: -3px; margin: 0 4px; }
+      .pix-icon svg { width: 100%; height: 100%; }
+      .trust-img { height: 44px; width: auto; display: block; }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">
+        <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
+        <span>Ação entre amigos</span>
+      </div>
+      <a id="cta-top" class="btn" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">🔑 Participar agora</a>
+    </div>
+
+    <header class="hero">
+      <div class="hero-inner container">
+        <div class="eyebrow">🚀 Ação especial entre amigos</div>
+        <h1 class="title">Seu futuro Hyundai Creta pode ser seu</h1>
+        <p class="subtitle">Com uma contribuição única, você participa desta campanha e tem a chance de receber um grande prêmio.</p>
+        <a id="cta-hero" class="btn" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">🔑 Participar agora</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card carousel" aria-label="Galeria do carro">
+        <div class="viewport">
+          <div class="track" id="carousel-track"></div>
+          <div class="nav">
+            <button class="arrow" id="prev" aria-label="Imagem anterior">‹</button>
+            <button class="arrow" id="next" aria-label="Próxima imagem">›</button>
+          </div>
+          <div class="dots" id="dots"></div>
+        </div>
+      </section>
+      <section id="premio" class="grid two">
+        <div class="card">
+          <h2>🎁 Detalhes do prêmio</h2>
+          <ul>
+            <li><strong>Prêmio principal:</strong> Hyundai Creta Limited 2025 (seminovo)</li>
+            <li><strong>Alternativa em valor:</strong> <span id="alt-cash">R$ 140.000,00</span> via <span class="pix-icon" aria-label="pagamento instantâneo" title="PIX"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="3.5" width="17" height="17" rx="4" transform="rotate(45 12 12)" fill="#00C6B3" stroke="#ffffff" stroke-width="1"/></svg></span> (caso não queira ficar com o carro)</li>
+          </ul>
+        </div>
+        <div class="card promo-card">
+          <h2>🌟 Níveis de Participação</h2>
+          <ul>
+            <li><strong>Contribuição unitária:</strong> R$ 15,00 por participação</li>
+          </ul>
+          <div class="muted" style="margin-top:8px">🏷️ Promoções </div>
+          <ul>
+            <li>3 participações por <strong>R$ 12,00</strong> cada</li>
+            <li>5 participações por <strong>R$ 11,50</strong> cada</li>
+            <li>10 participações por <strong>R$ 11,00</strong> cada</li>
+          </ul>
+        </div>
+      </section>
+
+      
+    </main>
+
+    <footer class="center">
+      <div class="container" style="padding-top:0">
+        <div class="card footer-card">
+          <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap; align-items:center;">
+            <div style="display:flex; align-items:center; gap:8px" title="Pagamento seguro">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 10V8a6 6 0 1112 0v2" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round"/><rect x="4" y="10" width="16" height="10" rx="2" stroke="#6ee7b7" stroke-width="2"/><path d="M9 15l2 2 4-4" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="muted">Ambiente seguro</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px" title="Site verificado">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7l7-4z" stroke="#93c5fd" stroke-width="2"/><path d="M9 13l2 2 4-4" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="muted">Site verificado</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px" title="Garantia de 7 dias">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7l7-4z" stroke="#facc15" stroke-width="2"/><path d="M8 12l2 2 4-4" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="muted">Garantia de 7 dias</span>
+            </div>
+            <img src="Selo_de_Garantia_de_7_Dias_PNG_Transparente_Sem_Fundo.png" alt="Garantia de 7 dias" class="trust-img" />
+            <img src="selo_caixa.png" alt="Sorteio pela Loteria Federal" class="trust-img" />
+          </div>
+          <div style="margin-top:12px" class="muted"><small>Campanha privada entre amigos. Quantidades limitadas. Consulte regras e prazos no regulamento.</small></div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function() {
+        // CTAs
+        const url = 'https://rumomaisumarota.com.br/meucretadosonhos';
+        ['cta-hero','cta-top'].forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
+
+        // Carousel
+        const candidates = [
+          'car1.jpeg','car2.jpeg','car3.jpeg','car4.jpeg','car5.jpeg','car6.jpeg','car7.jpeg','car8.jpeg',
+          'car 5.jpeg','car 6.jpeg','car 7.jpeg','car 8.jpeg','carro.png'
+        ];
+        const track = document.getElementById('carousel-track');
+        const dots = document.getElementById('dots');
+        const prev = document.getElementById('prev');
+        const next = document.getElementById('next');
+        const loaded = [];
+
+        function addSlide(src) {
+          const slide = document.createElement('div');
+          slide.className = 'slide';
+          const img = document.createElement('img');
+          img.src = src; img.alt = 'Foto do carro';
+          slide.appendChild(img);
+          track.appendChild(slide);
+
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          const thisIndex = loaded.length;
+          dot.addEventListener('click', () => goTo(thisIndex));
+          dots.appendChild(dot);
+        }
+
+        let index = 0; let intervalId = null;
+        function goTo(i) {
+          if (loaded.length === 0) return;
+          index = (i + loaded.length) % loaded.length;
+          track.style.transform = `translateX(${-index * 100}%)`;
+          [...dots.children].forEach((d, di) => d.classList.toggle('active', di === index));
+        }
+        function startAuto() { stopAuto(); intervalId = setInterval(() => goTo(index + 1), 3000); }
+        function stopAuto() { if (intervalId) clearInterval(intervalId); }
+
+        prev?.addEventListener('click', () => { goTo(index - 1); startAuto(); });
+        next?.addEventListener('click', () => { goTo(index + 1); startAuto(); });
+        track?.parentElement?.addEventListener('mouseenter', stopAuto);
+        track?.parentElement?.addEventListener('mouseleave', startAuto);
+
+        let pending = candidates.length; let anyLoaded = false;
+        candidates.forEach(src => {
+          const img = new Image();
+          img.onload = () => { loaded.push(src); addSlide(src); anyLoaded = true; goTo(loaded.length - 1); if (--pending === 0) { if (anyLoaded) startAuto(); } };
+          img.onerror = () => { if (--pending === 0) { if (anyLoaded) startAuto(); else { const gallery = document.querySelector('.carousel'); if (gallery) gallery.style.display = 'none'; } } };
+          img.src = src;
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+
