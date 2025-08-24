@@ -21,6 +21,14 @@
       fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
+    <!-- GA4 configurado via Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NN7B7TL6');</script>
+    <!-- End Google Tag Manager -->
     <style>
       :root {
         --primary: #0ea5e9;
@@ -236,6 +244,9 @@
     </style>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NN7B7TL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class="topbar">
       <div class="brand">
         <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
@@ -354,11 +365,42 @@
           const el = document.getElementById(id);
           if (el) {
             el.addEventListener('click', () => {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({ event: 'generate_lead', content_name: id, method: 'button' });
               if (typeof fbq === 'function') {
                 fbq('track', 'Lead', { content_name: id });
               }
             });
           }
+        });
+
+        // Generic analytics for all buttons/links used as buttons
+        function trackButtonClick(event) {
+          const el = event.currentTarget;
+          const id = el.id || undefined;
+          const text = (el.textContent || '').trim().slice(0, 80) || undefined;
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'click_button', element_id: id, element_text: text });
+          if (typeof fbq === 'function') {
+            fbq('trackCustom', 'ClickButton', { element_id: id, element_text: text });
+          }
+        }
+
+        const buttonSelectors = 'a.btn, button, [role="button"], .carousel button.arrow';
+        document.querySelectorAll(buttonSelectors).forEach(el => {
+          el.addEventListener('click', trackButtonClick);
+        });
+
+        // Video analytics (play start)
+        document.querySelectorAll('video').forEach(video => {
+          video.addEventListener('play', () => {
+            const src = video.currentSrc || video.getAttribute('src') || undefined;
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'video_start', video_src: src });
+            if (typeof fbq === 'function') {
+              fbq('trackCustom', 'VideoStart', { video_src: src });
+            }
+          });
         });
 
         // Carousel
