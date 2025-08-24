@@ -138,9 +138,26 @@
         box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35);
         transition: transform .08s ease, background .2s ease;
       }
+      .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 8px; }
       .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
       @keyframes pulseCta { 0% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } 50% { transform: translateY(-1px) scale(1.03); box-shadow: 0 16px 36px rgba(250, 204, 21, 0.5); } 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } }
       .btn.attention { animation: pulseCta 1.8s ease-in-out infinite; }
+
+      /* 3D Button */
+      .btn-3d {
+        transform: translateY(0);
+        box-shadow: 0 8px 0 #d97706, 0 12px 24px rgba(0,0,0,0.35);
+        transition: transform .08s ease, box-shadow .08s ease, background .2s ease, filter .2s ease;
+      }
+      .btn-3d:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 0 #b45309, 0 16px 28px rgba(0,0,0,0.4);
+      }
+      .btn-3d:active {
+        transform: translateY(3px);
+        box-shadow: 0 4px 0 #d97706, 0 8px 16px rgba(0,0,0,0.3);
+        filter: brightness(0.98);
+      }
 
       /* Sections */
       section { padding: 36px 0; }
@@ -202,7 +219,7 @@
         <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
         <span>Ação entre amigos</span>
       </div>
-      <a id="cta-top" class="btn attention" href="#" rel="noopener" target="_blank">Contribuição única R$ 15,00</a>
+      <a id="cta-top" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">Contribuição única R$ 15,00</a>
     </div>
 
     <header class="hero">
@@ -210,7 +227,7 @@
         <div class="eyebrow">🚀 Ação especial entre amigos</div>
         <h1 class="title">Entre nessa Ação Entre Amigos e garanta sua chance de levar um carro incrível!</h1>
         <p class="subtitle">Adquira sua cota e acelere rumo à sorte! 🚗✨</p>
-        <a id="cta-hero" class="btn attention" href="#" target="_blank" rel="noopener">Contribuição única R$ 15,00</a>
+        <a id="cta-hero" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">Contribuição única R$ 15,00</a>
       </div>
     </header>
 
@@ -253,6 +270,7 @@
           </ul>
           <div class="muted" style="margin-top:8px">🏷️ Promoções </div>
           <div class="limited-badge">⚡ Promoção relâmpago até 6 de setembro</div>
+          <a id="cta-promo" class="btn small attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener" style="margin:10px auto 0; display:block; width:fit-content;">Aproveitar promoção</a>
           <ul>
             <li class="promo-highlight blink-bg">10 bilhetes (participações) de <s>R$ 150,00</s> por <strong>R$ 49,99</strong> — quantidade limitada — adquira seu bilhete para participar</li>
           </ul>
@@ -295,11 +313,11 @@
     <script>
       (function() {
         // CTAs
-        const url = 'sohnodatercuem/rb.moc.atoramuisamomur//:sptth'.split('').reverse().join('');
-        ['cta-hero','cta-top'].forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
+        const url = 'https://rumomaisumarota.com.br/meucretadosonhos';
+        ['cta-hero','cta-top','cta-promo'].forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
 
         // FB Pixel: rastrear cliques nos CTAs como Lead
-        ['cta-hero','cta-top'].forEach(id => {
+        ['cta-hero','cta-top','cta-promo'].forEach(id => {
           const el = document.getElementById(id);
           if (el) {
             el.addEventListener('click', () => {
