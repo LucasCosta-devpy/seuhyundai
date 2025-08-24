@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ação especial entre amigos — Rumo Mais Uma Rota</title>
+    <title>Ação entre amigos — Rumo Mais Uma Rota</title>
     <meta name="description" content="Participe desta ação entre amigos e tenha a chance de receber um grande prêmio. Alternativa em valor disponível por transferência." />
     <link rel="icon" href="logo.jpeg" type="image/jpeg" />
     <!-- Meta Pixel Code -->
@@ -63,6 +63,9 @@
         align-items: center;
         justify-content: space-between;
         padding: 10px 16px;
+        padding-top: calc(10px + env(safe-area-inset-top));
+        padding-left: calc(16px + env(safe-area-inset-left));
+        padding-right: calc(16px + env(safe-area-inset-right));
         background: rgba(0,0,0,0.4);
         position: fixed;
         top: 0;
@@ -135,11 +138,16 @@
         border-radius: 10px;
         border: 1px solid rgba(255,255,255,0.08);
         font-weight: 700;
+        min-height: 44px; /* Touch target */
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
         box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35);
         transition: transform .08s ease, background .2s ease;
       }
-      .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 8px; }
-      .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+      .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 8px; min-height: 38px; }
+      @media (hover: hover) and (pointer: fine) {
+        .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+      }
       @keyframes pulseCta { 0% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } 50% { transform: translateY(-1px) scale(1.03); box-shadow: 0 16px 36px rgba(250, 204, 21, 0.5); } 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } }
       .btn.attention { animation: pulseCta 1.8s ease-in-out infinite; }
 
@@ -182,6 +190,14 @@
         .grid.three { grid-template-columns: 1fr 1fr 1fr; }
       }
 
+      /* Small-screen refinements */
+      @media (max-width: 480px) {
+        .container { padding: 16px; }
+        .brand span { font-size: 12px; padding: 3px 8px; }
+        .topbar .btn { padding: 10px 14px; font-size: 14px; }
+        .carousel img { max-height: 55vh; }
+      }
+
       /* Carousel */
       .carousel { position: relative; overflow: hidden; border-radius: var(--radius); }
       .carousel .viewport { position: relative; width: 100%; background: #0c1016; }
@@ -211,6 +227,12 @@
       @keyframes blinkBg { 0%, 100% { background: rgba(250, 204, 21, 0.25); box-shadow: 0 0 0 rgba(250, 204, 21, 0.0); } 50% { background: rgba(250, 204, 21, 0.6); box-shadow: 0 0 16px rgba(250, 204, 21, 0.35); } }
       .promo-highlight { padding: 8px 10px; border-radius: 8px; }
       .blink-bg { animation: blinkBg 1.2s ease-in-out infinite; }
+
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .btn.attention, .blink, .blink-bg { animation: none !important; }
+        .carousel .track { transition: none; }
+      }
     </style>
   </head>
   <body>
@@ -219,15 +241,15 @@
         <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
         <span>Ação entre amigos</span>
       </div>
-      <a id="cta-top" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">Contribuição única R$ 15,00</a>
+      <a id="cta-top" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">Participar</a>
     </div>
 
     <header class="hero">
       <div class="hero-inner container">
-        <div class="eyebrow">🚀 Ação especial entre amigos</div>
+        <div class="eyebrow">🚀 Ação entre amigos</div>
         <h1 class="title">Entre nessa Ação Entre Amigos e garanta sua chance de levar um carro incrível!</h1>
         <p class="subtitle">Adquira sua cota e acelere rumo à sorte! 🚗✨</p>
-        <a id="cta-hero" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">Contribuição única R$ 15,00</a>
+        <a id="cta-hero" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener">Participar</a>
       </div>
     </header>
 
@@ -280,6 +302,17 @@
             <li>5 participações por <strong>R$ 11,50</strong> cada</li>
             <li>10 participações por <strong>R$ 11,00</strong> cada</li>
           </ul>
+        </div>
+      </section>
+
+      <section id="depoimentos" class="card" aria-label="Depoimentos de ganhadores">
+        <h2>👏 Depoimentos</h2>
+        <div class="muted">Quem participou e ganhou nas ações entre amigos</div>
+        <div style="border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; background: #0c1016; margin-top:12px;">
+          <video controls preload="metadata" playsinline style="width:100%; max-width:680px; height:auto; max-height:78vh; display:block; margin:0 auto; object-fit:contain;" poster="carro.png">
+            <source src="rifinha-relâmpago-01-Rodrigo.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeo HTML5.
+          </video>
         </div>
       </section>
 
