@@ -51,6 +51,15 @@
         --radius: 12px;
         --maxw: 1080px;
         --border: rgba(0,0,0,0.08);
+        
+        /* Advanced Motion Easing - Inspired by Motion.dev */
+        --spring-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        --spring-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --spring-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+        --spring-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        --motion-duration-fast: 200ms;
+        --motion-duration-normal: 300ms;
+        --motion-duration-slow: 500ms;
       }
 
       * { box-sizing: border-box; }
@@ -159,11 +168,44 @@
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
         box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35);
-        transition: transform .08s ease, background .2s ease;
+        transition: all var(--motion-duration-fast) var(--spring-snappy);
+        position: relative;
+        overflow: hidden;
       }
-      .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 8px; min-height: 38px; }
+
+      .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left var(--motion-duration-slow) var(--spring-smooth);
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn.small { 
+        padding: 8px 14px; 
+        font-size: 14px; 
+        border-radius: 8px; 
+        min-height: 38px; 
+      }
+      
       @media (hover: hover) and (pointer: fine) {
-        .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+        .btn:hover { 
+          filter: brightness(1.05); 
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 15px 35px rgba(250, 204, 21, 0.5);
+        }
+      }
+
+      .btn:active {
+        transform: translateY(-1px) scale(0.98);
+        transition: all var(--motion-duration-fast) var(--spring-bounce);
       }
       @keyframes pulseCta { 0% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } 50% { transform: translateY(-1px) scale(1.03); box-shadow: 0 16px 36px rgba(250, 204, 21, 0.5); } 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 24px rgba(250, 204, 21, 0.35); } }
       .btn.attention { animation: pulseCta 1.8s ease-in-out infinite; }
@@ -184,13 +226,57 @@
         filter: brightness(0.98);
       }
 
-      /* Sections */
-      section { padding: 36px 0; }
+      /* Advanced Motion Animations */
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fadeInRotate {
+        from {
+          opacity: 0;
+          transform: rotate(-5deg) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: rotate(0deg) scale(1);
+        }
+      }
+
+      /* Sections - Immediate display */
+      section { 
+        padding: 36px 0;
+      }
+      
       .card {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 22px;
+        transition: all var(--motion-duration-normal) var(--spring-snappy);
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
       }
       h2 { margin: 0 0 14px; font-size: 22px; }
       ul { margin: 12px 0 0; padding-left: 18px; }
@@ -248,9 +334,617 @@
       .combo-list { display: grid; gap: 8px; margin: 8px auto 0; width: 100%; max-width: 340px; }
       .combo-btn { display: block; width: 100%; text-align: center; }
 
+      /* Floating promo button with advanced motion */
+      .floating-promo {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #00e676, #00c853, #4caf50);
+        border: 3px solid #ffeb3b;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4);
+        animation: advancedGreenPulse 2s var(--spring-elastic) infinite;
+        transition: all var(--motion-duration-normal) var(--spring-bounce);
+        /* Initially hidden */
+        opacity: 0;
+        transform: translateY(100px) scale(0.5) rotate(180deg);
+        pointer-events: none;
+      }
+
+      .floating-promo.show {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+        pointer-events: all;
+        animation-delay: 0.3s;
+      }
+
+      @keyframes advancedGreenPulse {
+        0%, 100% { 
+          transform: scale(1) rotate(0deg);
+          box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4);
+        }
+        25% {
+          transform: scale(1.05) rotate(2deg);
+          box-shadow: 0 6px 30px rgba(0, 230, 118, 0.6);
+        }
+        50% { 
+          transform: scale(1.1) rotate(0deg);
+          box-shadow: 0 8px 40px rgba(0, 230, 118, 0.8);
+        }
+        75% {
+          transform: scale(1.05) rotate(-2deg);
+          box-shadow: 0 6px 30px rgba(0, 230, 118, 0.6);
+        }
+      }
+
+      @keyframes greenPulse {
+        0%, 100% { 
+          transform: scale(1);
+          box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4);
+        }
+        50% { 
+          transform: scale(1.1);
+          box-shadow: 0 6px 30px rgba(0, 230, 118, 0.7);
+        }
+      }
+
+      .floating-promo:hover {
+        transform: scale(1.15);
+        box-shadow: 0 8px 35px rgba(0, 230, 118, 0.8);
+      }
+
+      /* Modal styles */
+      .promo-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .promo-modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background: linear-gradient(135deg, #00e676, #00c853);
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        position: relative;
+        border: 3px solid #ffeb3b;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: modalSlideIn 0.3s ease-out;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          transform: scale(0.7) translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-title {
+        color: #ffeb3b;
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      }
+
+      .modal-timer {
+        background: rgba(255,255,255,0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        margin: 15px auto;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .modal-offer {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px 0;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      }
+
+      .modal-btn {
+        background: #ffeb3b;
+        color: #111;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 800;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 15px;
+        box-shadow: 0 4px 15px rgba(255, 235, 59, 0.3);
+        transition: all 0.2s ease;
+      }
+
+      .modal-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 235, 59, 0.5);
+      }
+
+      /* Ação Extra Styles - Professional Design */
+      .rifinha-especial {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border: 1px solid #cbd5e1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .rifinha-especial::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff9800, #f57c00, #ff6f00);
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      .rifinha-especial h2 {
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 28px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .rifinha-especial .muted {
+        text-align: center;
+        font-size: 16px;
+        color: #64748b;
+        font-weight: 500;
+        margin-bottom: 24px;
+        letter-spacing: 0.5px;
+      }
+
+      .rifinha-card {
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .rifinha-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 152, 0, 0.05), rgba(245, 124, 0, 0.05));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .rifinha-card:hover::before {
+        opacity: 1;
+      }
+
+      .rifinha-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: #ff9800;
+      }
+
+      .rifinha-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .rifinha-badge {
+        background: linear-gradient(45deg, #10b981, #059669);
+        color: white;
+        padding: 6px 14px;
+        border-radius: 25px;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        animation: greenPulse 2s ease-in-out infinite;
+      }
+
+      .rifinha-price {
+        background: linear-gradient(45deg, #ff9800, #f57c00);
+        color: white;
+        padding: 8px 18px;
+        border-radius: 25px;
+        font-weight: 800;
+        font-size: 20px;
+        box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+        letter-spacing: 0.5px;
+      }
+
+      .rifinha-card h3 {
+        color: #1e293b;
+        margin: 0 0 20px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.3;
+        text-align: center;
+      }
+
+      .rifinha-details {
+        margin: 20px 0;
+        background: rgba(248, 250, 252, 0.8);
+        padding: 16px;
+        border-radius: 12px;
+        border-left: 4px solid #ff9800;
+      }
+
+      .rifinha-prize, .rifinha-info {
+        margin: 10px 0;
+        color: #475569;
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .rifinha-prize {
+        color: #1e293b;
+        font-weight: 600;
+      }
+
+      .rifinha-cta {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .btn-rifinha {
+        background: linear-gradient(45deg, #ff9800, #f57c00);
+        color: white;
+        padding: 14px 32px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 16px;
+        display: inline-block;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-rifinha::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .btn-rifinha:hover::before {
+        left: 100%;
+      }
+
+      .btn-rifinha:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+        background: linear-gradient(45deg, #f57c00, #ff6f00);
+      }
+
+      /* Ações Anteriores Styles */
+      .acoes-anteriores h2 {
+        text-align: center;
+        color: #1e293b;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .acoes-anteriores .muted {
+        text-align: center;
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 24px;
+      }
+
+      .acoes-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      @media (min-width: 768px) {
+        .acoes-grid {
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+      }
+
+      .acao-sorteada {
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 18px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .acao-sorteada::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #10b981, #059669);
+      }
+
+      .acao-sorteada:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border-color: #10b981;
+      }
+
+      .acao-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .acao-status.sorteada {
+        background: linear-gradient(45deg, #10b981, #059669);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+      }
+
+      .acao-valor {
+        background: #64748b;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .acao-sorteada h4 {
+        color: #334155;
+        margin: 0 0 16px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .acao-info {
+        background: rgba(255, 255, 255, 0.7);
+        padding: 12px;
+        border-radius: 8px;
+        border-left: 3px solid #10b981;
+      }
+
+      .ganhador, .data-sorteio {
+        margin: 6px 0;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .ganhador {
+        color: #1e293b;
+        font-weight: 600;
+      }
+
+      /* Social Media Styles */
+      .social-description {
+        text-align: center;
+        color: var(--muted);
+        margin-bottom: 24px;
+        font-size: 16px;
+      }
+
+      .social-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      @media (min-width: 640px) {
+        .social-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .social-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .social-card.instagram {
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        color: white;
+      }
+
+      .social-card.tiktok {
+        background: linear-gradient(135deg, #000000, #ff0050);
+        color: white;
+      }
+
+      .social-card.whatsapp {
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white;
+      }
+
+      .social-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .social-icon {
+        min-width: 50px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .social-icon-img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        display: block;
+        /* Remove filter to show original colors */
+      }
+
+      .social-content h3 {
+        margin: 0 0 4px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .social-content p {
+        margin: 0 0 8px;
+        opacity: 0.9;
+        font-size: 14px;
+      }
+
+      .social-cta {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 640px) {
+        .social-card {
+          flex-direction: column;
+          text-align: center;
+          gap: 12px;
+        }
+        
+        .social-icon-img {
+          width: 48px;
+          height: 48px;
+        }
+      }
+
+      /* Advanced hover states */
+      .card:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        transition: all var(--motion-duration-normal) var(--spring-elastic);
+      }
+
+      /* Micro-interactions for better UX */
+      .btn-rifinha {
+        transition: all var(--motion-duration-normal) var(--spring-bounce);
+      }
+
+      .btn-rifinha:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(255, 152, 0, 0.5);
+        background: linear-gradient(45deg, #f57c00, #ff6f00);
+      }
+
+      .social-card {
+        transition: all var(--motion-duration-normal) var(--spring-snappy);
+      }
+
+      .social-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
       /* Reduce motion for accessibility */
       @media (prefers-reduced-motion: reduce) {
-        .btn.attention, .blink, .blink-bg { animation: none !important; }
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        
+        .btn.attention, .blink, .blink-bg, .floating-promo, .rifinha-badge { 
+          animation: none !important; 
+        }
         .carousel .track { transition: none; }
       }
     </style>
@@ -354,6 +1048,104 @@
         </div>
       </section>
 
+      <section class="card rifinha-especial" aria-label="Ação entre amigos extra">
+        <h2>🎯 Ação entre amigos extra</h2>
+        <p class="muted">Ações extras para ganhar mais bilhetes na ação principal do Creta!</p>
+        
+        <div class="rifinha-card" onclick="window.open('https://rumomaisumarota.com.br/rifinha/rifaespecial02', '_blank')">
+          <div class="rifinha-header">
+            <span class="rifinha-badge">⚡ ATIVA</span>
+            <span class="rifinha-price">R$ 6,00</span>
+          </div>
+          <h3>Ação Extra - Escolha seu número e concorra a 10 bilhetes na ação principal!</h3>
+          <div class="rifinha-details">
+            <div class="rifinha-prize">
+              🏆 <strong>Prêmio:</strong> Concorra a 10 bilhetes extras para o Creta
+            </div>
+            <div class="rifinha-info">
+              📅 <strong>Data da Ação Extra:</strong> 27/09/2025 às 16:00
+            </div>
+            <div class="rifinha-info">
+              🎫 <strong>Disponível:</strong> 60 números
+            </div>
+          </div>
+          <div class="rifinha-cta">
+            <span class="btn-rifinha">🎯 PARTICIPAR DA AÇÃO</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card acoes-anteriores" aria-label="Ações Anteriores">
+        <h2>🏆 Ações Anteriores</h2>
+        <p class="muted">Veja algumas ações que já foram sorteadas e seus ganhadores!</p>
+        
+        <div class="acoes-grid">
+
+          <div class="acao-sorteada">
+            <div class="acao-header">
+              <span class="acao-status sorteada">✅ SORTEADA</span>
+              <span class="acao-valor">R$ 3,00</span>
+            </div>
+            <h4>Ação Relâmpago - Concorreu a bilhetes na ação principal</h4>
+            <div class="acao-info">
+              <div class="ganhador">
+                🎉 <strong> Ganhador da ação relampago:</strong> Rodrigo G.
+              </div>
+              <div class="maiorcomprador">
+                🎉 <strong> Maior comprador da ação relampago:</strong> Lucas C.
+              </div>
+              <div class="data-sorteio">
+                📅 <strong>Entregue em:</strong> 17/08/2024 12:00
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="card social-media" aria-label="Redes Sociais">
+        <h2>📱 Nos siga nas redes sociais</h2>
+        <p class="social-description">Para nos conhecer melhor e tirar suas dúvidas!</p>
+        
+        <div class="social-grid">
+          <a href="https://www.instagram.com/rumomaisumarota" target="_blank" rel="noopener" class="social-card instagram" id="social-instagram">
+            <div class="social-icon">
+              <img src="icone-do-instagram.png" alt="Instagram" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span class="social-icon-fallback" style="display:none; font-size:32px;">📷</span>
+            </div>
+            <div class="social-content">
+              <h3>Instagram</h3>
+              <p>@rumomaisumarota</p>
+              <span class="social-cta">Seguir</span>
+            </div>
+          </a>
+          
+          <a href="https://www.tiktok.com/@rumomaisumarota" target="_blank" rel="noopener" class="social-card tiktok" id="social-tiktok">
+            <div class="social-icon">
+              <img src="10464230.png" alt="TikTok" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span class="social-icon-fallback" style="display:none; font-size:32px;">🎵</span>
+            </div>
+            <div class="social-content">
+              <h3>TikTok</h3>
+              <p>@rumomaisumarota</p>
+              <span class="social-cta">Seguir</span>
+            </div>
+          </a>
+          
+          <a href="https://chat.whatsapp.com/LU3tAk9CtdILP2XZwyyxsA" target="_blank" rel="noopener" class="social-card whatsapp" id="social-whatsapp">
+            <div class="social-icon">
+              <img src="whatsapp_12635043.png" alt="WhatsApp" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span class="social-icon-fallback" style="display:none; font-size:32px;">💬</span>
+            </div>
+            <div class="social-content">
+              <h3>WhatsApp</h3>
+              <p>Comunidade</p>
+              <span class="social-cta">Entrar</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
       
     </main>
 
@@ -381,15 +1173,57 @@
       </div>
     </footer>
 
+    <!-- Floating Promo Button -->
+    <div id="floating-promo" class="floating-promo" title="Promoção Relâmpago">
+      ⚡
+    </div>
+
+    <!-- Promo Modal -->
+    <div id="promo-modal" class="promo-modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">×</button>
+        <h3 class="modal-title">⚡ PROMOÇÃO RELÂMPAGO ⚡</h3>
+        <div class="modal-timer">
+          🕒 Válida até 27 de Setembro de 2025
+        </div>
+        <div class="modal-offer">
+          🎯 25 RIFAS por apenas R$ 6,00!
+        </div>
+        <div style="font-size: 14px; margin-bottom: 20px; opacity: 0.9;">
+          Aproveite esta oferta imperdível por tempo limitado!
+        </div>
+        <a id="btn-promo-modal" class="modal-btn" href="#" target="_blank" rel="noopener">
+          🔥 APROVEITAR AGORA 🔥
+        </a>
+      </div>
+    </div>
+
     <script>
       (function() {
+        // ========================================
+        // CONFIGURAÇÃO DA PROMOÇÃO RELÂMPAGO
+        // ========================================
+        // Para ATIVAR a promoção: mude para true
+        // Para DESATIVAR a promoção: mude para false
+        const PROMO_RELAMPAGO_ATIVA = false;
+        
+        // Configurações da promoção (opcional - edite se quiser)
+        const PROMO_CONFIG = {
+          titulo: '⚡ PROMOÇÃO RELÂMPAGO ⚡',
+          prazo: '🕒 Válida até x de x de xxxx',
+          oferta: '🎯 x RIFAS por apenas R$ x,00!',
+          descricao: 'Aproveite esta oferta imperdível por tempo limitado!',
+          botao: '🔥 APROVEITAR AGORA 🔥'
+        };
+        // ========================================
+
         // CTAs
         const url = 'https://rumomaisumarota.com.br/meucretadosonhos';
-        ['cta-hero','cta-top','cta-promo','cta-combos','btn-combo-10','btn-combo-20','btn-combo-30','btn-combo-50','btn-combo-top-1','btn-combo-top-10','btn-combo-top-20','btn-combo-top-30','btn-combo-top-50']
+        ['cta-hero','cta-top','cta-promo','cta-combos','btn-combo-10','btn-combo-20','btn-combo-30','btn-combo-50','btn-combo-top-1','btn-combo-top-10','btn-combo-top-20','btn-combo-top-30','btn-combo-top-50','btn-promo-modal']
           .forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
 
         // FB Pixel: rastrear cliques nos CTAs como Lead
-        ['cta-hero','cta-top','cta-promo','cta-combos','btn-combo-10','btn-combo-20','btn-combo-30','btn-combo-50','btn-combo-top-1','btn-combo-top-10','btn-combo-top-20','btn-combo-top-30','btn-combo-top-50']
+        ['cta-hero','cta-top','cta-promo','cta-combos','btn-combo-10','btn-combo-20','btn-combo-30','btn-combo-50','btn-combo-top-1','btn-combo-top-10','btn-combo-top-20','btn-combo-top-30','btn-combo-top-50','btn-promo-modal','social-instagram','social-tiktok','social-whatsapp']
         .forEach(id => {
           const el = document.getElementById(id);
           if (el) {
@@ -434,6 +1268,166 @@
             }
           });
         });
+
+                 // Scroll detection for auto-opening promo modal
+         const floatingPromo = document.getElementById('floating-promo');
+         const promoModal = document.getElementById('promo-modal');
+         let hasScrolledAndShownPromo = false;
+
+         function autoShowPromoModal() {
+           if (promoModal && !hasScrolledAndShownPromo && PROMO_RELAMPAGO_ATIVA) {
+             // Show floating button first
+             if (floatingPromo) {
+               floatingPromo.classList.add('show');
+             }
+             
+             // Open modal automatically after a small delay
+             setTimeout(() => {
+               promoModal.classList.add('show');
+               hasScrolledAndShownPromo = true;
+               
+               // Track auto modal open
+               if (typeof gtag === 'function') {
+                 gtag('event', 'promo_modal_auto_open', { trigger: 'scroll', promo_active: PROMO_RELAMPAGO_ATIVA });
+               }
+               if (typeof fbq === 'function') {
+                 fbq('trackCustom', 'PromoModalAutoOpen', { trigger: 'scroll', promo_active: PROMO_RELAMPAGO_ATIVA });
+               }
+             }, 500); // 500ms delay for smooth experience
+           }
+         }
+
+         // Update modal content with configuration
+         function updatePromoContent() {
+           if (!PROMO_RELAMPAGO_ATIVA) return;
+           
+           const modalTitle = document.querySelector('.modal-title');
+           const modalTimer = document.querySelector('.modal-timer');
+           const modalOffer = document.querySelector('.modal-offer');
+           const modalDesc = document.querySelector('.modal-content div[style*="font-size: 14px"]');
+           const modalBtn = document.getElementById('btn-promo-modal');
+           
+           if (modalTitle) modalTitle.textContent = PROMO_CONFIG.titulo;
+           if (modalTimer) modalTimer.textContent = PROMO_CONFIG.prazo;
+           if (modalOffer) modalOffer.textContent = PROMO_CONFIG.oferta;
+           if (modalDesc) modalDesc.textContent = PROMO_CONFIG.descricao;
+           if (modalBtn) modalBtn.textContent = PROMO_CONFIG.botao;
+         }
+
+                 // Initialize promo content and visibility
+        updatePromoContent();
+        
+        // Hide floating button if promo is disabled
+        if (!PROMO_RELAMPAGO_ATIVA && floatingPromo) {
+          floatingPromo.style.display = 'none';
+        }
+
+        // Track ação extra clicks
+        const rifinhaCard = document.querySelector('.rifinha-card');
+        if (rifinhaCard) {
+          rifinhaCard.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+              gtag('event', 'acao_extra_click', { 
+                content_name: 'acao_extra_02',
+                value: 6.00,
+                currency: 'BRL'
+              });
+            }
+            if (typeof fbq === 'function') {
+              fbq('track', 'ViewContent', { 
+                content_name: 'Ação Extra',
+                content_type: 'product',
+                value: 6.00,
+                currency: 'BRL'
+              });
+            }
+          });
+        }
+
+        // Simplified Motion System - Immediate display with hover effects
+        document.addEventListener('DOMContentLoaded', () => {
+          // Enhanced button interactions (kept for better UX)
+          document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+              btn.style.transform = 'translateY(-3px) scale(1.02)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+              btn.style.transform = '';
+            });
+
+            btn.addEventListener('mousedown', () => {
+              btn.style.transform = 'translateY(-1px) scale(0.98)';
+            });
+
+            btn.addEventListener('mouseup', () => {
+              btn.style.transform = 'translateY(-3px) scale(1.02)';
+            });
+          });
+
+          // Check social media icons loading
+          const socialIcons = document.querySelectorAll('.social-icon-img');
+          socialIcons.forEach((img, index) => {
+            img.addEventListener('load', () => {
+              console.log(`Ícone ${index + 1} carregado com sucesso: ${img.src}`);
+            });
+            img.addEventListener('error', () => {
+              console.log(`Erro ao carregar ícone ${index + 1}: ${img.src}`);
+              // Show fallback emoji
+              const fallback = img.nextElementSibling;
+              if (fallback) {
+                img.style.display = 'none';
+                fallback.style.display = 'block';
+              }
+            });
+          });
+        });
+
+         // Auto-open promo modal on scroll
+         window.addEventListener('scroll', () => {
+           if (window.scrollY > 100) { // Show after scrolling 100px
+             autoShowPromoModal();
+           }
+         });
+
+         // Floating promo modal functionality
+         const modalClose = document.getElementById('modal-close');
+
+         if (floatingPromo && promoModal && modalClose) {
+          // Open modal (only if promo is active)
+          floatingPromo.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (PROMO_RELAMPAGO_ATIVA) {
+              promoModal.classList.add('show');
+              // Track modal open
+              if (typeof gtag === 'function') {
+                gtag('event', 'promo_modal_open', { content_name: 'floating_promo', promo_active: PROMO_RELAMPAGO_ATIVA });
+              }
+              if (typeof fbq === 'function') {
+                fbq('trackCustom', 'PromoModalOpen', { source: 'floating_button', promo_active: PROMO_RELAMPAGO_ATIVA });
+              }
+            }
+          });
+
+          // Close modal
+          modalClose.addEventListener('click', () => {
+            promoModal.classList.remove('show');
+          });
+
+          // Close modal when clicking outside
+          promoModal.addEventListener('click', (e) => {
+            if (e.target === promoModal) {
+              promoModal.classList.remove('show');
+            }
+          });
+
+          // Close modal with ESC key
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && promoModal.classList.contains('show')) {
+              promoModal.classList.remove('show');
+            }
+          });
+        }
 
         // Carousel
         const candidates = [
