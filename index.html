@@ -99,6 +99,14 @@
         z-index: 10;
         backdrop-filter: blur(6px);
         border-bottom: 1px solid rgba(0,0,0,0.06);
+        min-height: 80px;
+      }
+
+      @media (max-width: 480px) {
+        .topbar {
+          padding: 8px 12px;
+          min-height: 70px;
+        }
       }
       .brand {
         display: flex;
@@ -299,6 +307,22 @@
         .brand span { font-size: 12px; padding: 3px 8px; }
         .topbar .btn { padding: 10px 14px; font-size: 14px; }
         .carousel img { max-height: 55vh; }
+        
+        /* Fix mobile title cutting */
+        .hero-inner {
+          padding: 100px 16px 56px;
+        }
+        
+        .title {
+          font-size: clamp(24px, 6vw, 36px);
+          line-height: 1.2;
+          margin: 10px 0 16px;
+        }
+        
+        .subtitle {
+          font-size: clamp(14px, 3vw, 16px);
+          margin: 0 auto 20px;
+        }
       }
 
       /* Carousel */
