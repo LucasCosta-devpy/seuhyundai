@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ação entre amigos — Rumo Mais Uma Rota</title>
     <meta name="description" content="Participe desta ação entre amigos e tenha a chance de receber um grande prêmio. Alternativa em valor disponível por transferência." />
-    <link rel="icon" href="logo.jpeg" type="image/jpeg" />
+    <link rel="icon" href="logo.jpg" type="image/jpg" />
     <!-- Meta Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -42,14 +42,15 @@
         --primary-700: #0284c7;
         --grad-start: #22c55e;
         --grad-end: #06b6d4;
-        --bg: #0f1115;
-        --surface: #171a21;
-        --muted: #9aa4b2;
-        --text: #e9eef6;
+        --bg: #f5f7fb;         /* Light background */
+        --surface: #ffffff;     /* Card background */
+        --muted: #475569;       /* Slate-600 */
+        --text: #111827;        /* Gray-900 */
         --success: #16a34a;
         --accent: #f59e0b;
         --radius: 12px;
         --maxw: 1080px;
+        --border: rgba(0,0,0,0.08);
       }
 
       * { box-sizing: border-box; }
@@ -81,21 +82,21 @@
         padding-top: calc(10px + env(safe-area-inset-top));
         padding-left: calc(16px + env(safe-area-inset-left));
         padding-right: calc(16px + env(safe-area-inset-right));
-        background: rgba(0,0,0,0.4);
+        background: rgba(255,255,255,0.85);
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         z-index: 10;
         backdrop-filter: blur(6px);
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
       }
       .brand {
         display: flex;
         align-items: center;
         gap: 10px;
       }
-      .brand img { width: 28px; height: 28px; border-radius: 6px; }
+      .brand img { width: 60px; height: 60px; border-radius: 6px; }
       .brand span { font-size: 13px; font-weight: 800; color: #111; background: linear-gradient(90deg, var(--grad-start), var(--grad-end)); padding: 4px 10px; border-radius: 999px; box-shadow: 0 6px 16px rgba(6,182,212,0.25); }
 
       /* Hero */
@@ -104,7 +105,7 @@
         min-height: 10vh;
         display: grid;
         place-items: center;
-        background: #0b0e13;
+        background: #0b0e13; /* keep dark image area */
         overflow: clip;
       }
       .hero::before {
@@ -122,6 +123,7 @@
         z-index: 1;
         text-align: center;
         padding: 96px 24px 56px;
+        color: #fff;
       }
       .eyebrow {
         display: inline-block;
@@ -151,7 +153,7 @@
         color: #111;
         padding: 14px 22px;
         border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border);
         font-weight: 700;
         min-height: 44px; /* Touch target */
         touch-action: manipulation;
@@ -186,7 +188,7 @@
       section { padding: 36px 0; }
       .card {
         background: var(--surface);
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 22px;
       }
@@ -215,22 +217,21 @@
 
       /* Carousel */
       .carousel { position: relative; overflow: hidden; border-radius: var(--radius); }
-      .carousel .viewport { position: relative; width: 100%; background: #0c1016; }
+      .carousel .viewport { position: relative; width: 100%; background: #f3f4f6; }
       .carousel .track { display: flex; align-items: center; transition: transform .5s ease; }
-      .carousel .slide { min-width: 100%; display: flex; align-items: center; justify-content: center; background: #0c1016; padding: 8px; }
+      .carousel .slide { min-width: 100%; display: flex; align-items: center; justify-content: center; background: #f3f4f6; padding: 8px; }
       .carousel img { max-width: 100%; height: auto; max-height: 75vh; object-fit: contain; }
       .carousel .nav { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; pointer-events: none; }
-      .carousel button.arrow { pointer-events: all; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.45); color: #fff; cursor: pointer; font-size: 18px; font-weight: 800; }
+      .carousel button.arrow { pointer-events: all; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.06); color: #111; cursor: pointer; font-size: 18px; font-weight: 800; }
       .carousel .dots { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center; }
-      .carousel .dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,0.35); }
-      .carousel .dot.active { background: #fff; }
+      .carousel .dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(0,0,0,0.3); }
+      .carousel .dot.active { background: #111; }
 
-      
 
       .promo-card strong { color: #facc15; }
 
       footer { padding: 30px 24px 60px; color: var(--muted); font-size: 13px; }
-      .footer-card { background:#12161d; border-top: 2px solid #facc15; }
+      .footer-card { background:#f8fafc; border-top: 2px solid #facc15; }
       .center { text-align: center; }
       .pix-icon { display: inline-flex; width: 18px; height: 18px; vertical-align: -3px; margin: 0 4px; }
       .pix-icon svg { width: 100%; height: 100%; }
@@ -242,6 +243,10 @@
       @keyframes blinkBg { 0%, 100% { background: rgba(250, 204, 21, 0.25); box-shadow: 0 0 0 rgba(250, 204, 21, 0.0); } 50% { background: rgba(250, 204, 21, 0.6); box-shadow: 0 0 16px rgba(250, 204, 21, 0.35); } }
       .promo-highlight { padding: 8px 10px; border-radius: 8px; }
       .blink-bg { animation: blinkBg 1.2s ease-in-out infinite; }
+
+      /* Combos as buttons */
+      .combo-list { display: grid; gap: 8px; margin: 8px auto 0; width: 100%; max-width: 340px; }
+      .combo-btn { display: block; width: 100%; text-align: center; }
 
       /* Reduce motion for accessibility */
       @media (prefers-reduced-motion: reduce) {
@@ -256,7 +261,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <div class="topbar">
       <div class="brand">
-        <img src="logo.jpeg" alt="Rumo Mais Uma Rota" />
+        <img src="logo.jpg" alt="Rumo Mais Uma Rota" />
         <span>Ação entre amigos</span>
       </div>
       <a id="cta-top" class="btn attention" href="https://rumomaisumarota.com.br/meucretadosonhos" rel="noopener" target="_blank">Participar</a>
@@ -272,6 +277,22 @@
     </header>
 
     <main class="container">
+      <section id="niveis-top" class="card" aria-label="Níveis de Participação (topo)">
+        <h2>🌟 Níveis de Participação</h2>
+        <ul>
+          <li><strong>Contribuição unitária:</strong> R$ 15,00 por participação</li>
+        </ul>
+        <div class="combo-list">
+          <a id="btn-combo-top-1" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">1 bilhete — R$ 15,00</a>
+        </div>
+        <div class="muted" style="margin-top:8px; text-align:center">Combos</div>
+        <div class="combo-list">
+          <a id="btn-combo-top-10" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">10 bilhetes — R$ 49,99</a>
+          <a id="btn-combo-top-20" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">20 bilhetes — R$ 89,99</a>
+          <a id="btn-combo-top-30" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">30 bilhetes — R$ 132,99</a>
+          <a id="btn-combo-top-50" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">50 bilhetes — R$ 221,99</a>
+        </div>
+      </section>
       <section class="card carousel" aria-label="Galeria do carro">
         <div class="viewport">
           <div class="track" id="carousel-track"></div>
@@ -282,15 +303,7 @@
           <div class="dots" id="dots"></div>
         </div>
       </section>
-      <section class="card" aria-label="Vídeo explicativo">
-        <h2>🎥 Entenda a ação</h2>
-        <div style="border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; background: #0c1016;">
-          <video controls preload="metadata" playsinline style="width:100%; max-width:680px; height:auto; max-height:78vh; display:block; margin:0 auto; object-fit:contain;" poster="carro.png">
-            <source src="dona.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeo HTML5.
-          </video>
-        </div>
-      </section>
+      
       <section id="premio" class="grid two">
         <div class="card">
           <h2>🎁 Detalhes do prêmio</h2>
@@ -308,18 +321,25 @@
           <ul>
             <li><strong>Contribuição unitária:</strong> R$ 15,00 por participação</li>
           </ul>
-          <div class="muted" style="margin-top:8px">🏷️ Promoções </div>
-          <div class="limited-badge">⚡ Promoção relâmpago até 6 de setembro</div>
-          <a id="cta-promo" class="btn small attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener" style="margin:10px auto 0; display:block; width:fit-content;">Aproveitar promoção</a>
-          <ul>
-            <li class="promo-highlight blink-bg">10 bilhetes (participações) de <s>R$ 150,00</s> por <strong>R$ 49,99</strong> — quantidade limitada — adquira seu bilhete para participar</li>
-          </ul>
-          <div class="muted" style="margin-top:8px">Promoção fixa</div>
-          <ul>
-            <li>3 participações por <strong>R$ 12,00</strong> cada</li>
-            <li>5 participações por <strong>R$ 11,50</strong> cada</li>
-            <li>10 participações por <strong>R$ 11,00</strong> cada</li>
-          </ul>
+          
+          <div class="muted" style="margin-top:8px; text-align:center">Combos</div>
+          <div class="combo-list" id="combos">
+            <a id="btn-combo-10" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">10 bilhetes — R$ 49,99</a>
+            <a id="btn-combo-20" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">20 bilhetes — R$ 89,99</a>
+            <a id="btn-combo-30" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">30 bilhetes — R$ 132,99</a>
+            <a id="btn-combo-50" class="btn combo-btn attention blink" href="#" target="_blank" rel="noopener">50 bilhetes — R$ 221,99</a>
+          </div>
+          <a id="cta-combos" class="btn small attention" href="https://rumomaisumarota.com.br/meucretadosonhos" target="_blank" rel="noopener" style="margin:12px auto 0; display:block; width:fit-content;">Ir para o site</a>
+        </div>
+      </section>
+
+      <section class="card" aria-label="Vídeo explicativo">
+        <h2>🎥 Entenda a ação</h2>
+        <div style="border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; background: #0c1016;">
+          <video controls preload="metadata" playsinline style="width:100%; max-width:680px; height:auto; max-height:78vh; display:block; margin:0 auto; object-fit:contain;" poster="carro.png">
+            <source src="dona.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeo HTML5.
+          </video>
         </div>
       </section>
 
@@ -365,10 +385,12 @@
       (function() {
         // CTAs
         const url = 'https://rumomaisumarota.com.br/meucretadosonhos';
-        ['cta-hero','cta-top','cta-promo'].forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
+        ['cta-hero','cta-top','cta-promo','cta-combos','btn-combo-10','btn-combo-20','btn-combo-30','btn-combo-50','btn-combo-top-1','btn-combo-top-10','btn-combo-top-20','btn-combo-top-30','btn-combo-top-50']
+          .forEach(id => { const el = document.getElementById(id); if (el) el.href = url; });
 
         // FB Pixel: rastrear cliques nos CTAs como Lead
-        ['cta-hero','cta-top','cta-promo'].forEach(id => {
+        ['cta-hero','cta-top','cta-promo','cta-combos','btn-combo-10','btn-combo-20','btn-combo-30','btn-combo-50','btn-combo-top-1','btn-combo-top-10','btn-combo-top-20','btn-combo-top-30','btn-combo-top-50']
+        .forEach(id => {
           const el = document.getElementById(id);
           if (el) {
             el.addEventListener('click', () => {
